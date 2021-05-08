@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
+
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-register',
@@ -7,11 +12,79 @@ import { Component, OnInit } from '@angular/core';
     '../login/login.component.css'
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
-  constructor() { }
+  public formSubmitted = false;
+  public registerForm = this.fb.group({
+    nombre: ['gero', [Validators.required]],
+    email: ['gero@gmail.com', [Validators.required, Validators.email]],
+    password: ['gero', [Validators.required]],
+    password2: ['gero', [Validators.required]],
+    terminos: [true, Validators.requiredTrue],
+  }, {
+    Validators: this.passwordsIguales('password', 'password2')
+  });
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private router: Router) { }
+
+
+  crearUsuario() {
+    this.formSubmitted = true;
+    // console.log(this.registerForm.value);
+
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    // Post request
+    this.usuarioService.crearUsuario(this.registerForm.value)
+      .subscribe(res => {
+        // navegar al dashboard
+        this.router.navigateByUrl('/');
+      }, err => {
+        Swal.fire('Error', err.error.msg, 'error');
+      });
+  }
+
+  campoNoValido(campo: string): boolean {
+    if (this.registerForm.get(campo).invalid && this.formSubmitted) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  aceptaTerminos() {
+    return !this.registerForm.get('terminos').value == true && this.formSubmitted == true;
+  }
+
+  passNoCoincide() {
+    const pass1 = this.registerForm.get('password').value;
+    const pass2 = this.registerForm.get('password2').value;
+
+    if ((pass1 !== pass2) && this.formSubmitted) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  passwordsIguales(pass1Name, pass2Name) {
+    return (formGroup: FormGroup) => {
+      const pass1Control = formGroup.get(pass1Name);
+      const pass2Control = formGroup.get(pass2Name);
+
+      if (pass1Control.value === pass2Control.value) {
+        pass2Control.setErrors(null);
+      }
+      else {
+        pass2Control.setErrors({ noEsIgual: true });
+      }
+    }
   }
 
 }
