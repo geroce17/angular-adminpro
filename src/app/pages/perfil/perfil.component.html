@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Mi perfil</h4>
+                <h6 class="card-subtitle">Información de perfil</h6>
+                <form class="form p-t-20" [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
+                    <div class="form-group">
+                        <label for="exampleInputuname">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" class="form-control" formControlName="nombre"
+                                placeholder="Nombre de usuario">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email"
+                                placeholder="Email">
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="perfilForm.invalid"
+                        class="btn btn-success btn-block waves-effect waves-light m-r-10">
+                        Submit
+                        <i class="fa fa-save"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Imagen de usuario</h4>
+                <div class="text-center">
+                    <img *ngIf="!imgTemp" class="img-fluid img-rounded" [src]="usuario.imagenUrl" alt="img-avatar" width="150">
+                    <img *ngIf="imgTemp" class="img-fluid img-rounded" [src]="imgTemp" alt="img-avatar" width="150">
+                </div>
+                <input type="file" (change)="cambiarImagen($event.target.files[0])">
+                <br>
+                <br>
+                <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                    [disabled]="!imagenSubir" (click)="subirImagen()">
+                    Cargar imagen
+                    <i class="fa fa-save"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

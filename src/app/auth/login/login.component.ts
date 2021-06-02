@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     remember: [false]
   });
   public auth2: any;
+  public gapi: any;
 
   constructor(
     private router: Router, private fb: FormBuilder,
