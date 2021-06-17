@@ -1,0 +1,37 @@
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="modalImagenService.ocultarModal">
+    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" labelledby="exampleModalLabel1"
+        style="display: block; padding-right: 17px;">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel1">Actualiza tu imagen</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="cerrarModal()"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img *ngIf="!imgTemp" class="img-fluid img-rounded" [src]="modalImagenService.img" alt="img-avatar"
+                            width="150">
+                        <img *ngIf="imgTemp" class="img-fluid img-rounded" [src]="imgTemp"
+                            alt="img-avatar" width="150">
+                    </div>
+                    <input type="file" (change)="cambiarImagen($event.target.files[0])">
+                </div>
+                <br>
+                <br>
+                <!-- <button type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                        [disabled]="!imagenSubir" (click)="subirImagen()">
+                        Cargar imagen
+                        <i class="fa fa-save"></i> -->
+                <!-- </button> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                        (click)="cerrarModal()">Cerrar</button>
+                    <button type="button" class="btn btn-primary"
+                    (click)="subirImagen()">Actualizar imagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

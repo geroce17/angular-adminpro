@@ -8,19 +8,23 @@ export class Usuario {
         public email: string,
         public password?: string,
         public role?: string,
-        public google?: string, 
+        public google?: boolean,
         public img?: string,
         public uid?: string
-    ){}
+    ) { }
+    
     get imagenUrl() {
-        if(this.img.includes('https')){
+        if (!this.img)
+        return `${base_url}/uploads/usuarios/404-img`;
+
+        if (this.img.includes('https')) {
             return this.img;
         }
-        
-        if(this.img){
+
+        if (this.img) {
             return `${base_url}/uploads/usuarios/${this.img}`;
         }
-        else{
+        else {
             return `${base_url}/uploads/usuarios/404-img`;
         }
     }

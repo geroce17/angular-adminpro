@@ -16,3 +16,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.w100{
+    width: 100px;
+}
+
+.w140{
+    width: 140px;
+}
