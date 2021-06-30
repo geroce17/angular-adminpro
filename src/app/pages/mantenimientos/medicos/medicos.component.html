@@ -1,0 +1,68 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #termino (keyup)="buscarMedicos(termino.value)" type="text" class="form-control" placeholder="buscar medicos...">
+
+            </div>
+        </div>
+        <div *ngIf="cargando" class="alert alert-success text-center" role="alert">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Espere un momento por favor</p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!cargando" class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="mt-3 text-center">
+                <a class="btn btn-primary" [routerLink]="['/dashboard/medico/nuevo']" routerLinkActive="router-link-active" >
+                    Agregar nuevo medico
+                    <i class="fa fa-hospital-o"></i>
+                </a>
+            </div>
+
+
+            <div class="card-body">
+                <h4 class="card-title">Médicos</h4>
+                <h6 class="card-subtitle">Listado de medicos</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100">Imagen</th>
+                                <th class="">Nombre</th>
+                                <th class="text-nowrap w100">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let medico of medicos">
+                                <td>
+                                    <img (click)="abrirModal(medico)" 
+                                    width="80" 
+                                    [src]="medico.img | imagen:'medicos'" 
+                                    [alt]="medico.nombre"
+                                    class="img-fluid cursor">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="nombre de médico"
+                                        [(ngModel)]="medico.nombre">
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" [routerLink]="['/dashboard/medico', medico._id]"  data-toggle="tooltip" data-original-title="Edit"> <i
+                                            class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <a class="cursor" (click)="eliminarMedico(medico)" data-toggle="tooltip" data-original-title="Close"> <i
+                                            class="fa fa-close text-danger"></i> </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { BusquedasService } from '../../../services/busquedas.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Hospital } from '../../../models/hospital.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -71,7 +72,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
     this.busquedaService.buscar('usuarios', termino)
       .subscribe(resultados => {
-        this.usuarios = resultados;
+        this.usuarios = resultados as Usuario[];
       });
   }
 
