@@ -1,0 +1,104 @@
+<div class="row animated fadeIn fast">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+
+                <div *ngIf="usuarios.length === 0" class="alert alert-info animated fadeIn fast" role="alert">
+                    <p class="mb-0">No hay usuarios que coincidan con tu búsqueda</p>
+                </div>
+
+                <div class="animated fadeIn fast" *ngIf="usuarios.length > 0">
+                    <h4 class="card-title">Usuarios</h4>
+                    <table class="tablesaw 
+                        table-bordered 
+                        table-hover table 
+                        tablesaw-swipe 
+                        table-responsive" data-tablesaw-mode="swipe" id="table-3444">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of usuarios">
+                                <td><img style="border-radius: 50%;" width="70" height="70"
+                                        [src]="usuario.img | imagen: 'usuarios'" alt=""></td>
+                                <td>{{usuario.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+
+                <div *ngIf="medicos.length === 0" class="alert alert-info animated fadeIn fast" role="alert">
+                    <p class="mb-0">No hay médicos que coincidan con tu búsqueda</p>
+                </div>
+
+                <div class="animated fadeIn fast" *ngIf="medicos.length > 0">
+                    <h4 class="card-title">Médicos</h4>
+                    <table class="tablesaw 
+                        table-bordered 
+                        table-hover table 
+                        tablesaw-swipe 
+                        table-responsive" data-tablesaw-mode="swipe" id="table-3444">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cursor" *ngFor="let medico of medicos" [routerLink]="['/dashboard/medico', medico._id]">
+                                <td><img style="border-radius: 50%;" width="70" height="70"
+                                        [src]="medico.img | imagen: 'medicos'" alt=""></td>
+                                <td>{{medico.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+
+                <div *ngIf="hospitales.length === 0" class="alert alert-info animated fadeIn fast" role="alert">
+                    <p class="mb-0">No hay hospitales que coincidan con tu búsqueda</p>
+                </div>
+
+                <div class="animated fadeIn fast" *ngIf="hospitales.length > 0">
+                    <h4 class="card-title">Hospitales</h4>
+                    <table class="tablesaw 
+                        table-bordered 
+                        table-hover table 
+                        tablesaw-swipe 
+                        table-responsive" data-tablesaw-mode="swipe" id="table-3444">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let hospital of hospitales">
+                                <td><img style="border-radius: 50%;" width="70" height="70"
+                                        [src]="hospital.img | imagen: 'hospitales'" alt=""></td>
+                                <td>{{hospital.nombre}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -42,12 +42,16 @@ export class UsuarioService {
     }
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
+  }
+
   crearUsuario(formData: RegisterForm) {
     return this.http.post(`${base_url}/usuarios`, formData).pipe(
       tap(
         (res: any) => {
           console.log(res);
-          localStorage.setItem('token', res.token);
+          this.guardarLocalStorage(res.token, res.menu);
         }
       )
     )
@@ -66,7 +70,7 @@ export class UsuarioService {
       tap(
         (res: any) => {
           console.log(res);
-          localStorage.setItem('token', res.token);
+          this.guardarLocalStorage(res.token, res.menu);
         }
       )
     )
@@ -77,7 +81,7 @@ export class UsuarioService {
       tap(
         (res: any) => {
           console.log(res);
-          localStorage.setItem('token', res.token);
+          this.guardarLocalStorage(res.token, res.menu);
         }
       )
     )
@@ -92,7 +96,9 @@ export class UsuarioService {
       map((resp: any) => {
         const { email, google, nombre, role, uid, img = '' } = resp.usuario;
         this.usuario = new Usuario(nombre, email, '', role, google, img, uid);
-        localStorage.setItem('token', resp.token);
+
+        this.guardarLocalStorage(resp.token, resp.menu);
+
         return true;
       }),
       catchError(error => of(false))
@@ -101,6 +107,7 @@ export class UsuarioService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigate(['login']);
@@ -153,6 +160,11 @@ export class UsuarioService {
 
   guardarUsuario(usuario: Usuario) {
     return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers);
+  }
+
+  guardarLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
   }
 
 }
