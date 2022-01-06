@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  base_url: 'http://localhost:3000/api' // Cambiar url en produccion
+  base_url: 'https://adminpro-backend117.herokuapp.com/api'
 };
